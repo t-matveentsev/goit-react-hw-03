@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
+import s from "./App.module.css";
 
 export default function App() {
   const [isEmpty, setIsEmpty] = useState(false);
@@ -39,7 +40,9 @@ export default function App() {
     );
 
     if (contactInclude) {
-      alert("Контакт із таким імʼям або номером телефону вже існує!");
+      alert(
+        "A contact with that name or phone number already exists! Use the search!"
+      );
       action.setSubmitting(false);
       return;
     }
@@ -52,8 +55,8 @@ export default function App() {
   };
 
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <section className={s.wrapper}>
+      <h1>Phone book</h1>
       <ContactForm handleAdd={handleAdd} />
       <SearchBox searchField={searchField} inputSearch={handleChangeInput} />
       <ContactList
@@ -61,6 +64,6 @@ export default function App() {
         setContact={setContact}
         isEmpty={isEmpty}
       />
-    </div>
+    </section>
   );
 }

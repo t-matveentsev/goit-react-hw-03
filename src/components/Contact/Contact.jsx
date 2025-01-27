@@ -1,12 +1,14 @@
+import s from "./Contact.module.css";
+
 const Contact = ({ name, number, id, handleDelete }) => {
   return (
-    <div>
-      <li>
-        <p>{name}</p>
-        <p>{number}</p>
-        <button onClick={() => handleDelete(id)}>Delete</button>
-      </li>
-    </div>
+    <li className={s.item}>
+      <p>{name}</p>
+      <p>{number}</p>
+      <button className={s.itemBtn} onClick={() => handleDelete(id)}>
+        Delete
+      </button>
+    </li>
   );
 };
 
