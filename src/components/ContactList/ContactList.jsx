@@ -2,9 +2,14 @@ import Contact from "../Contact/Contact";
 import s from "./ContactList.module.css";
 
 const ContactList = ({ setContact, filteredContacts, isEmpty }) => {
-  const handleDelete = (id) => {
-    const newContactList = filteredContacts.filter((item) => item.id != id);
-    setContact(newContactList);
+  // const handleDelete = (id) => {
+  //   const newContactList = filteredContacts.filter((item) => item.id != id);
+  //   setContact(newContactList);
+  // };
+  const handleDelete = (contactId) => {
+    setContact((prev) => {
+      return prev.filter((item) => item.id !== contactId);
+    });
   };
 
   return (

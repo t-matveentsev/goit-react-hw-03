@@ -3,29 +3,23 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import s from "./App.module.css";
+import initContacts from "./helpers/init-contacts.json";
+
+const LS_KEY = "contacts";
 
 export default function App() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [searchField, setSearchField] = useState("");
-  const [contact, setContact] = useState(() => {
-    const saveContacts = JSON.parse(localStorage.getItem("contacts"));
-    if (saveContacts?.length) {
-      return saveContacts;
-    }
-    return [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ];
-  });
+  const [contact, setContact] = useState(
+    () => JSON.parse(localStorage.getItem(LS_KEY)) ?? initContacts
+  );
   const filteredContacts = contact.filter((search) =>
     search.name.toLowerCase().includes(searchField.toLowerCase())
   );
 
   useEffect(() => {
     !contact.length ? setIsEmpty(true) : setIsEmpty(false);
-    localStorage.setItem("contacts", JSON.stringify(contact));
+    localStorage.setItem(LS_KEY, JSON.stringify(contact));
   }, [contact]);
 
   const handleChangeInput = (e) => {
